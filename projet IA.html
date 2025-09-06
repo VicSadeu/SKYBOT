@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>institut de management et de l'entreprenariat(ime)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #0c1317;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .whatsapp-container {
+            width: 100%;
+            max-width: 400px;
+            height: 700px;
+            background: #111b21;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chat-header {
+            background: #202c33;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-left: 1px solid #2a3942;
+            border-right: 1px solid #2a3942;
+        }
+        
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #6a7175;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+        
+        .avatar i {
+            font-size: 20px;
+            color: #cfd4d6;
+        }
+        
+        .header-info {
+            flex: 1;
+        }
+        
+        .header-info h2 {
+            color: #e9edef;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .header-info p {
+            color: #8696a0;
+            font-size: 13px;
+            margin-top: 2px;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            color: #aebac1;
+        }
+        
+        .header-icons i {
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px 15px;
+            overflow-y: auto;
+            background: #0b141a;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23121d23' fill-opacity='0.3' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            animation: fadeIn 0.3s ease;
+            max-width: 80%;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+            margin-left: auto;
+        }
+        
+        .message-content {
+            padding: 8px 12px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        
+        .bot-message .message-content {
+            background: #202c33;
+            color: #e9edef;
+            border-top-left-radius: 0;
+        }
+        
+        .user-message .message-content {
+            background: #005c4b;
+            color: #e9edef;
+            border-top-right-radius: 0;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: #8696a0;
+            margin-top: 3px;
+            text-align: right;
+        }
+        
+        .chat-input-container {
+            padding: 10px 15px;
+            background: #202c33;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #2a3942;
+        }
+        
+        .input-icons {
+            display: flex;
+            gap: 15px;
+            color: #8696a0;
+            margin-right: 10px;
+        }
+        
+        .input-icons i {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: #2a3942;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            font-size: 15px;
+            color: #e9edef;
+        }
+        
+        .chat-input::placeholder {
+            color: #8696a0;
+        }
+        
+        .send-button {
+            width: 40px;
+            height: 40px;
+            background: #005c4b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .send-button:hover {
+            background: #0c7d6a;
+        }
+        
+        .send-button i {
+            font-size: 18px;
+            transform: translateX(1px);
+        }
+        
+        .typing-indicator {
+            display: none;
+            padding: 5px 15px;
+            color: #8696a0;
+            font-style: italic;
+            font-size: 13px;
+        }
+        
+        .typing-indicator.active {
+            display: block;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px 15px;
+            background: #202c33;
+            border-top: 1px solid #2a3942;
+        }
+        
+        .suggestion-chip {
+            background: #2a3942;
+            padding: 8px 15px;
+            border-radius: 18px;
+            font-size: 13px;
+            color: #e9edef;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .suggestion-chip:hover {
+            background: #005c4b;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        @media (max-width: 480px) {
+            .whatsapp-container {
+                height: 100%;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="whatsapp-container">
+        <div class="chat-header">
+            <div class="avatar">
+                <div class="avatar">IME</div>
+            </div>
+            <div class="header-info">
+                <h2>SKY BOT</h2>
+            </div>
+            <div class="header-icons">
+                <i class="fas fa-video"></i>
+                <i class="fas fa-phone-alt"></i>
+                <i class="fas fa-ellipsis-vertical"></i>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    👋 Bonjour ! Je suis SKY BOT votre assistant.<br>En quoi puis-je vous aider aujourd'hui ?
+                    <div class="message-time">Maintenant</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="typing-indicator" id="typing-indicator">
+            <i class="fas fa-circle"></i> SKY BOT écrit...
+        </div>
+        
+        <div class="suggestions">
+            <div class="suggestion-chip" data-query="Quelles sont tes fonctionnalités?">Fonctionnalités</div>
+            <div class="suggestion-chip" data-query="Comment ça marche?">Comment ça marche</div>
+            <div class="suggestion-chip" data-query="Qui t'a créé?">Qui t'a créé</div>
+        </div>
+        
+        <div class="chat-input-container">
+            <div class="input-icons">
+                <i class="far fa-face-smile"></i>
+                <i class="fas fa-paperclip"></i>
+            </div>
+            <input type="text" class="chat-input" id="user-input" placeholder="Message...">
+            <button class="send-button" id="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const typingIndicator = document.getElementById('typing-indicator');
+            const suggestionChips = document.querySelectorAll('.suggestion-chip');
+            
+            // Base de connaissances du chatbot WhatsApp
+            const knowledgeBase = {
+                "filières":["Devenez Manager a IME: <ol>Brevet de technicien superieur(BTS) :<ol>specialités offertes:</ol> <li> Genie logiciel📱📳📴📲,</li> <li>gestion fiscal📘📗📕,</li> <li>douane et transit🚋🚖🚛,</li> <li>banque et finances🏬🛕🏩,</li> <li> gestion des projets🗺🌏🏕,</li> <li> gestion de la qualite commerce international🌍🌎🌏🗺,</li><li> gestion logistique et trasport🚌🚢🚤,</li><li> comptabilite🤑🤑🤑,</li><li> telecommunication✍👋🧏‍♂️,</li><li>reseaux et securite🕵️‍♂️👨‍💻👩‍💻,</li><li>maintenace des systemes d'information.👨‍💻👩‍💻👨‍💻</li>"],
+                 "programmes" : ["programme national : classes preparatoires generales et intergrees deux ans , des la troisieme annee ime offre une specialisation exceptionnelle a EFFREI PARIS"],
+                   "localisation": ["il existe plusieurs campus de l'IME: <li>campus bonamoussadi derrière le supermaché bao,</li><li>campus Akwa Bonadibong: face immeuble emploi service,</li><li>campus de bafoussam: bamendzi 2 ème carrefour éveché</li></ol><ol>Pour plus d'information veillez contactez le 691 17 25 59 au nom de MR KELLE STEPHANE"],
+                   "contact":["<li>Douala: 679781093/ 683647460.</li>E-mail: infos@ime-school.com<li> Bafoussam: 682282322</li>"],
+                   "lien":["🌐🌐www.ime-school🌐🌐.</ol>"],
+                   "historique":["L’Institut Supérieur de Management et de l’Entrepreneuriat🏅 (IME Business and Engineering School) est né de la volonté d’un groupe d’experts et chefs d’entreprises soucieux d’arrimer la qualité de la formation aux exigences du monde professionnel. <br>L’IME, au cours de son évolution, s’est bâtie une solide réputation à travers ses formations professionnelles ouvertes sur le marché de l’emploi.</br> <br>Partenaire des entreprises👨‍💼👩‍✈️👨‍💼, l’IME associe les chefs d’entreprise à l’amélioration de ses offres de formations. La stratégie d’écoute du milieu professionnel témoigne de la volonté d’offrir à un public exigeant une formation pratique soutenue débouchant sur l’insertion socioprofessionnelle.</br><br> L’évolution de l’IME reflète le dynamisme du monde professionnel et des besoins du public en formation.</br><br> L’expérience de l’Institution lui permet de garantir et de satisfaire ces doubles exigences.</br><br>La gouvernance :</br><br>Conseil Scientifique et Pédagogique : Pr Emmanuel KAMDEM,</br><br> Président du Conseil d’Orientation et Stratégique : M. Protais AYANGMA,</br><br> Président Entreprises du Cameroun (ECAM)Direction Générale : Dr Blaise OUAFO,</br><br>  Le Directeur Général de L’année 2004 marque le lancement des activités de l’Institut Supérieur de Management et de l’Entrepreneuriat offrant des formations continues, en 2006, dans le domaine du Management.</br><br>L’année 2009 est marquée par la construction et la mise en exploitation de son campus I à Bonamoussadi.</br><br>Reconnue d’utilité publique, l’IME obtient en 2010 l’autorisation du Ministère de l’Enseignement Supérieur (Minesup-Cameroun) pour la délivrance des formations diplômantes en <li>BTS,</li><li> DSEP,</li><li> HND (Technologie, Ingénierie et Management).</li></br><br>Le démarrage effectif commence donc en 2010 sous la tutelle de l’Université de Ngaoundéré, des formations en Licence professionnelle dans les domaines porteurs d’emploi (Gestion des Projets et Entrepreneuriat, Sécurité Informatique, Gestion des RH, Management…etc.).</br><br>En 2013, c’est La Certification CISCO 9001 :2008; L’ouverture des Masters Professionnels dans le domaine de l’informatique et du management, Signature des accords de partenariat avec quatre grandes universités et écoles étrangères de référence internationale à savoir :</br><li> l’Ecole des Sciences de la Gestion de l’Université du Québec à Montréal (ESG UQAM) du Canada,</li><li> l’école de management de Normandie (EMN)</li><li>l’Ecole Supérieure d’Ingénieurs en Informatique et Génie des Télécommunications (ESIGETEL) de France,</li><li> l’Ecole Française d’Electronique et d’Informatique (EFREI) de France</li>.<br>En 2014, c’est le lancement du Programme Executive MBA avec l’Université du Québec à Montréal,</br><br> En 2016, c’est l’ouverture des filières industrielles, du cycle de professional Bachelor Degree sous la tutelle de l’Université de Dschang, l’ouverture de son Campus II à Akwa-Bonadibong, l’ouverture du Certificat en Administration des Affaires avec l’UQAM et la signature d’une entente avec l’Ex FGI de l’Université de Douala devenue ENSPD pour des formations en Sciences de l’Ingénierie.</br><br> En 2018 c’est : L’éligibilité au Programme International de Développement de la Qualité EDAF/EFMD,Sa participation au programme d’échange international de l’Union Européenne Génération ERASMUS,La création du CREMIA (Centre de Recherche Entreprendre, Manager et Innover en Afrique).La création du Centre de Perfectionnement d’IME.En 2019 c’est l’ouverture d’un Cycle de Professional Master Degree, 2020 c’est la création d’un Incubateur en partenariat avec ERASMUS EXPERTISE.</br><br> En 2021 : IME est classé  4ème Université privé du Cameroun (Classement général du Ministre de l’Enseignement Supérieur du Cameroun, communiqué du 03 septembre 2021).</br><br> En2022 : Signature d’un partenariat avec avec University of West England pour le Bachelor International (02 années au Cameroun et la troisième en Angleterre), ainsi qu’Arkansas University aux Etats Unis d’Amérique.</br>"],
+                    "vision":["👀Mobiliser les meilleures ressources académiques et professionnelles pour faire de nos étudiants les acteurs clés et privilégiés de la performance des entreprises camerounaises et internationales"],
+                    "formation":["✨Un BTS en bonus donne La possibilité de faire 03 années en Faculté de Génie Industriel,une années intenses et pointues  aux métiers d’ingénierie l’ouverture en spécialisation à des métiers d’ingénierie de pointe demandés à l’internationalL’insertion professionnelle dans des firmes internationales"],
+                    "atouts" :["Un cycle complet de formation à l’IME dans un environnement adapté à la formation avec de petits effectifs offre : Un accent mis sur la pratique, une réalisation de projets professionnels réels, Un encadrement des enseignants ayant le grade de docteur et des experts,	Des laboratoires super équipés-	L’alternance en 5ème et 4ème annéeL’emploi assuré par une entreprise du réseau GICAM et ECAM"],
+                    "avantages":["IME offre la Possibilité de continuer ses études dans une des meilleures écoles d’ingénierie en France ou en Afrique du nord,Spécialisation dans des métiers d’ingénierie de pointe recherchés par le marché,Insertion professionnelle dans des firmes internationales. Intégrer un réseau de 04 générations d’anciens étudiants de prépa ingénieur IME installés en France et dans le monde."],
+                    "diplome" :["IME offre : Master Pro informatique,Licence,International bachelor degree,Prepa ingénieur,FGI,BTS/HND, MBA."],
+                    "innovation":["L’IME s’est doté d’un second campus à Bonadibong🏦, IME offre des filières en anglais (HND+professionnal bachelor), l’IME offre un cycle de doctorat, le cycle de formation FGI a été intégré,  IME fait partie du réseau Erasmus et est éligible EDAF, et ses résultats de BTS ont augmenté. "],
+                    "faiblesse": [" principales faiblesses d’IME sont : Prix élevés, Faible marketing, Faible communication sur ses atouts, Durée de l’année universitaire longue, Pas de temps de jeu, trop sérieux, trop rigoureux."],
+                    "estimation" :["La durée de nos programmes équivaut à 15% de plus d’heure🕐 de programmation par rapport à la concurrence. Soit près de 300 000 fcfa💰💰 supportés par IME par programme. Nous offrons à chaque étudiant 05 cours de développement personnel d’une valeur de 750 000 F💰💰. Nous offrons plus de 04 cours de pratique professionnelle d’une valeur de 200 000 F💰. IME supporte le cadre confortable climatisé des salles de cours."],
+                    "concours" :["Le concours d’IME est un concours de bourse qui donne la possibilité d’obtenir des bourses sur la scolarité, du matériel académique (ordinateur). Et une place garantie en stage chez un partenaire professionnel d’IME. Il permet surtout de voir vos faiblesses, forces, ceci vous permettra de mieux vous former."],
+                    "inscription": ["L'enregistrement a IME donne acces à :<li> Un guide d’entretien utilisé à tout moment quand un visiteur est présent📘.</li><li>Un document présentant les atouts d’IME📗.</li><li>Une plaquette de formation pour présenter le contenu et les débouchées de nos formations🎞🧧.</li><li> Une fiche des éléments constitutifs du dossier📉.</li><li> une fiche de préinscription📝.</li>"],
+                    "qualités":["IME offre: <ol type=1><li>Un corps enseignant expérimenté et dévoué 👨‍🏫:</li> Le corps enseignant est constitué à 40% de chercheurs scientifiques de hauts vols et à 60% professionnels chevronnés.</li><li>Une Formation pratique👨‍⚖️👩‍⚖️: Tous les programmes de formation en licence Professionnelle comprennent des stages, des simulations, des projets tutorés. Ce qui familiarise nos étudiants aux environnements professionnels</li>.<li>Des programmes d’études novateurs : Nos programmes sont conçus pour répondre aux défis auxquels font faces les entreprises de nos jours.<br> On peut citer le marketing numérique, la gestion de projets et Entrepreneuriat, la Gestion des Opérations et de la production</ol></br> "],
+                    "taux de reussite":[" Le taux de réussite à IME varie entre 80% et 100% 💯grâce à l’exécution de nos contrôles continus hebdomadaires permettant à l’étudiant d’avoir la maitrise de ses cours et de contrôler son niveau intellectuel⁉‼ semaine après semaine.<br>Nos préparations intensives prennent effet au moins 2 mois avant le début de l’examen de BTS.</br>"],
+                    "professionnalisation":["IME offre : <ol type=->Un stage garanti dès la 1ère année,<li> les séminaires de professionnalisation mensuels fait auprès de l’étudiant,</li><li> visite d’entreprise prévue pendant la formation,</li><li> participation aux ACADEPRO.</li> Embrasser dès la première année BTS le métier de vos rêves, car cette formation prépare à un métier dès la 1ère année."],
+                    "téléphone":["<li>Douala: 679781093/ 683647460.</li>E-mail: infos@ime-school.com<li> Bafoussam: 682282322</li>"],
+                    "ime general":[" Elle offre :<ol>1. La professionnalisation accentuée👨‍🏫 : Des experts d’entreprises expérimentés👨‍💼 vous accompagne vers la formulation des solutions innovantes pour les entreprises🏢🏢 à travers <li>Des séminaires de professionnalisation,</li><li> des rencontres académiques et professionnelles,<li> des formations en alternance,</li><li> des visites d’entreprise🏢</li><li> des projets tutorés et des travaux pour des entreprises réseau GICAM et ECAM</li>.<ol>En cet effet,les différents présidents sont membres ses instances gouvernantes d’IME ( Le Conseil d’Orientation Stratégique).</ol><ol> 2. Le rayonnement international : IME c’est 04 Prépa Ingénieur avec la France, la Tunisie et l’Afrique du Sud, 03 Bachelors international avec la France, le Canada et l’Angleterre. Plus de 50 étudints étrangers, 05 programmes internationaux, l’éligibilité au Programme EDAF de l’EFMD, membre du programme Erasmus, 90% de nos étudiants continuent dans des universités internationales, Plus de 30 partenaires sur 03 continents🌎🌏🌍.</ol><ol> 3. La performance académique comme valeur fondamentale : Depuis 05 années notre taux de réussite au BTS est de 90%,💯💯 3ème national à l’examen de BTS 2021, 74% d’insertion professionnelle.En référence à la méthodologie utilisée par les enseignants canadiensdu prestigieux MBA de l’UQAM dispensé à l’IME, les enseignements en Master sont interactifs et principalement basés sur les études de cas que les diplômés rencontreront en entreprise. Cette méthodologie est accompagnée des outils tels que les Vidéos de présentation des situations réelles et les immersions des étudiants dans le monde des entreprises. Des enseignements offerts par des Ecoles de renommées internationales BSI Luxembourg, HEC Liège, Université Haute Alsace,</ol><lo>3.Un corps enseignant de qualité : Le corps enseignant est constitué à 40% de chercheurs scientifiques de hauts vols et à 60% professionnels chevronnés.</ol><ol>4.Un environnement dédié à la performance de la formation et au développement de vos compétences humaines et professionnelles : Un accompagnement individualisé de chaque étudiant dès son inscription dans le programme permet à celui-ci de recourir à son encadreur pour les difficultés auxquelles il peut être exposé.💢</ol>"],
+                    "ime ingenerie" :["elle note : <ol>1. Notre formation est un double diplome📜 : Elle permet d’avoir un diplôme de l’école Polytechnique de Douala📜 et le diplôme d’une université anglaise📜, française et  canadienne.</ol><ol>2. Des programmes « solutions » (Problem solving) :  Les programmes et les contenues ont été conçus pour répondre aux problèmes techniques et technologiques que les entreprises🏢 au Cameroun particulièrement à Douala et ses environs. Ce qui justifie le taux d’employabilité très élevé de nos ingénieurs.</ol><ol>3.	Un corps enseignant expérimenté : Le corps enseignant👨‍🏫👩‍🏫 est constitué à 40% de chercheurs scientifiques👨‍🔬👩‍🔬 de hauts vols et à 60% des ingénieurs pétris de plus de 30 ans d’expérience.</ol><ol>4.	Des laboratoires équipés aux standards en entreprise : Nos laboratoires ont été conçus et équipées par des professionnels du terrain avec tout le nécessaire pour habituer nos étudiants aux environnements professionnels.</ol><ol>5. Formation Pratique(Sous forme projet et problem solving): La démarche de formation étant très pratique, les cours sont dispensés sous modèle de projets par conséquent les étudiants s’initient à la notion de projets, notion de résultats et solutions aux problèmes.</ol><ol>6. Stages assurés et payants: Les accords signés avec les partenaires permettent d’assurer à tous les étudiants des stages qui à partir de 4ème année deviennent des stages payants et en 5ème passent en alternance (l’étudiant fréquente en travaillant).</ol><ol>7. Un programme bilingue : Les étudiants bénéficieront d’une formation en anglais intense et des remises à niveau faites chaque année d’environ 100h de cours d’anglais scientifique animés par des experts linguistiques.</ol><ol>7.Des sponsors internationaux : -	Notre programme est soutenu par des entreprises internationales en quête de talents. 40% des ingénieurs (surtout des informaticiens) trouvent des emplois dans de grosses entreprises anglaises, canadiennes et françaises en moins de 2 ans après leur formation.</ol>"],
+                     "ime licence":["elle note:<ol> Une formation pratique: </ol><li>Le corps enseignant👨‍🏫 est constitué à 40% de chercheurs scientifiques👩‍🔬👨‍🔬 de hauts vols et à 60% professionnels chevronnés.</li><ol>Des programmes d’études novateurs :</ol><li> Tous les programmes de formation en licence Professionnelle comprennent des stages, des simulations, des projets tutorés. Ce qui familiarise nos étudiants aux environnements professionnels.</li><ol>L’insertion professionnelle :</ol><li>Avec un taux d’insertion de 90%, les étudiants sortis de nos licences professionnelles travaillent dans les entreprises telles que Guiness, MTN, Orange, Afriland First Bank, Ecobank,🏦🏦 </li><ol>Un encadrement personnalisé :</ol><li>Un accompagnement individualisé de chaque étudiant dès son inscription dans le programme permet à celui-ci de recourir à son encadreur pour les difficultés auxquelles il peut être exposé.</li>"],
+                      "bachelor":["<br>IME proposer à ses étudiants la possibilité de continuer leurs études à l'étrangé grace au programme bavhelor international</br> "],
+                "programme":["<br>ce programme permet à l'étudiant de poursuivre ces études à l'étreangé via nos different partenaires</br>"],
+                "partenaire étrangé":["<br>nos partenaires à l'étrangé sont Excial Business School,University of West England et Effrei Paris (France)</br>"],
+                "scolarité":["<br>tout dépend de votre niveau d'étude et de votre cycle 😎</br><ol>pour plus d'information contactez le service IME au :<br> 656095301 Madame SORELLE</br><br> 691172559 M. KELLE STEPHANE</br>"],
+                "cycle":["<br>les cycles que nous proposons à nos étudiant sont bachelor français,bachelor anglais et le cycle de prepe ingénieur</br>"],
+                "niveau 1":["<br>pour le bachelor 1 la scolarité s'élève à 900.000 FCFA reparti en trois tranche , cependant IME permet à ces étdiants de pouvoir soldé la scolarité en plusieur tranches vior 10 tranche pour les étudiants qui non pas assez de moyen👌😁</br>"],
+                "niveau 2":["<br>pour le bachelor 2 la scolarité s'élève à 940.000FCFA avec une possibilité de soldé en plusieur tranches 😁😎</br>"],
+                "ingénieur":["<br>pour le prepa ingénieur cela dépend de toujours de votre niveau à savoir pour prepa 1 la scolarité s'élève à 990.000FCFA et le prepa 2 à 1.090.000FCFA vous avez toujours la possibilité de soldé en plusieur tranches😃✌</br>"],
+                "crée":["<br>je suis un chatbot d'IME créer pour repondre à tous vos préoccupations développer par:<li> MEGANE MICHELLE</li><li>JEAN FRANKLIN</li><li>THOMAS FRANçIS</li><li>YAMKAM STEPHAN</li><li>BERNARD LAMAR</li><li>NONO JOACHIM</li><li>MALELEL KEVIN </li><li>GHOUANSI KOUATCHO</li></br>"],
+               "diplome":["<br>IME propose à tous ces étudiants la possibilité d'avoir des diplomes reconnu à l'international à travers trois années de specialisations à EFREI Paris (FRANCe) au court du quel on vous delivre un diplome Français cepandent l'étudiant peut beneficié d'une bourse d'étude </br>"],
+                "travail":["<br>Dans l'obtique de repondre au besoin du monde du travail IME permet à tous ces étudiants de béneficié d'un stage en entreprise grace de nombreux relation dans le domaine cela peut permettre à l' étudiant de trouvé du travail en entreprise 😉👌</br>"],
+                "politique":["<br>IME dans sa politique  offre un cadre idéal et propise aux études avec des : <li>salles de classe climatiser </li><li>un wifi haut debit couvrant tout le batiment </li><li>un restaurant bar</li> Cepandent ime ce n'est pas que les études toujours dans le cadre scolaire il propose aux étudiants de multitudes d'activité qui rithme la vie à ime cas le but est de permettre aux étudiants de cultivé un esprit de vivre ensemble, le respect d'autrui,la tolérence,cas IME c'est la passion de la reusite 😃❤👌</br> "],
+                "cycle":["<br>les cycles que nous proposons à nos étudiant sont bachelor français,bachelor anglais et le cycle de prepe ingénieur</br>"],
+                "cycle":["<br>les cycles que nous proposons à nos étudiant sont bachelor français,bachelor anglais et le cycle de prepe ingénieur</br>"],
+                "pantion":["<br>tout dépend de votre niveau d'étude et de votre cycle 😎</br>"],
+                "insertion professionnel":["<br>Dans l'obtique de repondre au besoin du monde du travail IME permet à tous ces étudiants de béneficié d'un stage en entreprise grace de nombreux relation dans le domaine cela peut permettre à l' étudiant de trouvé du travail en entreprise 😉👌</br>"],
+                "infos":["<br> IME est une  institut de management et de l'entrepreneuriat (IME) c'est école superieur recherche constament l'excellence néxcite pas à inover pour réaliser ces objetifs et ce issé au plus haut niveau en matière d'enseignement academique en proposant plus programmes de formation que ce soit national ou international en cycle bachelor et ingénieur ❤✨🦺</br> "],
+                "relation":["<br>Dans léstantion de ces relations IME detient un large choix de partenaire international et national tels que :<li> efrei paris </li><li>ASCENCIA BUSINESS SCHOOL</li><li>UWE BRISTOL</li><li>EM NOMANDIE</li> puis national :<li>POLY technique</li><li>SHARDA UNIVERTY</li><li>ESSEC DOUALA📊💼</li></br>  "],
+                 "bonjour": ["Bonjour ! En quoi puis-je vous aider ? 😊", "Salut ! Que puis-je faire pour vous aujourd'hui ?", "👋 Bonjour ! En quoi puis-je vous assister ?"],
+                "ça va": ["Je vais très bien, merci ! Et vous ?", "Tout va bien de mon côté, merci de demander ! 😊", "Je fonctionne parfaitement, merci !"],
+                "aide": ["Je peux vous aider avec des questions simples, prendre des notes, programmer des rappels, et plus encore. Dites-moi simplement ce dont vous avez besoin !", "Je suis ici pour vous aider ! Vous pouvez me demander presque anything.", "Comment puis-je vous assister ?"],
+                "heure": ["Il est actuellement: " + new Date().toLocaleTimeString(), "Voici l'heure actuelle: " + new Date().toLocaleTimeString()],
+                "date": ["Nous sommes le: " + new Date().toLocaleDateString(), "Aujourd'hui nous sommes: " + new Date().toLocaleDateString()],
+                "merci": ["De rien ! C'est un plaisir de vous aider. 😊", "Je vous en prie ! N'hésitez pas si vous avez d'autres questions.", "Avec plaisir ! Je suis là pour ça."],
+                "créé": ["J'ai été spécialement créé pour cette démonstration en utilisant HTML, CSS et JavaScript.", "Mon créateur est un développeur web passionné par les chatbots et l'IA.", "Je suis le fruit du travail d'un développeur qui voulait recréer l'expérience WhatsApp dans le navigateur."],
+                "fonctionnalités": ["Je peux répondre à des questions simples, donner l'heure et la date, programmer des rappels, et avoir des conversations basiques. On améliore mes capacités régulièrement !", "Mes fonctionnalités incluent: répondre aux questions, fournir l'heure et la date, et discuter de sujets simples. Je deviens plus intelligent au fil du temps !"],
+                "comment ça marche": ["Je fonctionne en analysant les mots-clés de votre message et en cherchant des réponses correspondantes dans ma base de connaissances. Plus nous interagissons, plus je deviens intelligent !", "Mon système utilise un traitement de langage simple basé sur des mots-clés. Je ne suis pas une IA avancée, mais je fais de mon mieux pour vous aider !"],
+                "whatsapp": ["Ceci est une simulation de l'interface WhatsApp. Dans un vrai chatbot WhatsApp, je serais intégré à l'API officielle de WhatsApp Business.", "Pour un vrai chatbot WhatsApp, il faudrait utiliser l'API WhatsApp Business et un serveur pour traiter les messages."],
+                "commander": ["Pour passer commande, veuillez visiter notre site web ou appeler notre service client. Je peux vous orienter si vous me dites ce que vous cherchez.", "Malheureusement, je ne peux pas traiter les commandes directement pour le moment. Mais je peux vous rediriger vers le bon service !"],
+                "contact": ["Vous pouvez nous contacter au 01 23 45 67 89 ou par email à contact@entreprise.com", "Notre service client est disponible du lundi au vendredi de 9h à 18h."],
+                "default": ["Désolé, je n'ai pas compris. Pouvez-vous reformuler ? 🤔", "Je ne suis pas sûr de saisir. Pourriez-vous être plus précis ?", "Je n'ai pas assez d'information pour répondre à cela. Posez-moi une autre question !"],
+                "bachelor":["<br>IME proposer à ses étudiants la possibilité de continuer leurs études à l'étrangé grace au programme bavhelor international</br> "],
+                "programme":["<br>ce programme permet à l'étudiant de poursuivre ces études à l'étreangé via nos different partenaires</br>"],
+  };
+                    
+            // Fonction pour ajouter un message dans le chat
+            function addMessage(message, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+                
+                const messageContent = document.createElement('div');
+                messageContent.classList.add('message-content');
+                messageContent.innerHTML = message;
+                
+                const timeSpan = document.createElement('div');
+                timeSpan.classList.add('message-time');
+                timeSpan.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                messageContent.appendChild(timeSpan);
+                messageDiv.appendChild(messageContent);
+                chatMessages.appendChild(messageDiv);
+                
+                // Faire défiler vers le bas pour voir le nouveau message
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Fonction pour obtenir une réponse du bot
+            function getBotResponse(input) {
+                input = input.toLowerCase();
+                
+                // Vérifier les mots-clés
+                for (const keyword in knowledgeBase) {
+                    if (input.includes(keyword)) {
+                        const responses = knowledgeBase[keyword];
+                        return responses[Math.floor(Math.random() * responses.length)];
+                    }
+                }
+                
+                // Réponse par défaut si aucun mot-clé n'est trouvé
+                const defaultResponses = knowledgeBase['default'];
+                return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+            }
+            
+            // Fonction pour simuler la "frappe" du bot
+            function showTypingIndicator() {
+                typingIndicator.classList.add('active');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function hideTypingIndicator() {
+                typingIndicator.classList.remove('active');
+            }
+            
+            // Fonction pour traiter l'envoi de message
+            function sendMessage() {
+                const message = userInput.value.trim();
+                
+                if (message !== '') {
+                    // Ajouter le message de l'utilisateur
+                    addMessage(message, true);
+                    
+                    // Effacer le champ de saisie
+                    userInput.value = '';
+                    
+                    // Simuler le temps de réponse du bot
+                    showTypingIndicator();
+                    
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        
+                        // Obtenir et ajouter la réponse du bot
+                        const botResponse = getBotResponse(message);
+                        addMessage(botResponse, false);
+                    }, 1000 + Math.random() * 1000); // Temps de réponse aléatoire entre 1 et 2 secondes
+                }
+            }
+            
+            // Événements
+            sendBtn.addEventListener('click', sendMessage);
+            
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Gestion des suggestions
+            suggestionChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    userInput.value = this.getAttribute('data-query');
+                    sendMessage();
+                });
+            });
+            
+            // Focus automatique sur le champ de saisie
+            userInput.focus();
+        });
+    </script>
+</body>
+</html>
